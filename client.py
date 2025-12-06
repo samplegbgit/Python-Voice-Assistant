@@ -1,7 +1,14 @@
 import google.generativeai as genai
-genai.configure(api_key="AIzaSyCgWELq-jrAZdlvrLNY1v40TxBOBUV6rxs")
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+api_key = os.getenv("GEMINI_API_KEY")
+
+genai.configure(api_key=api_key)
+
 model = genai.GenerativeModel("models/gemini-2.5-flash")
-response = model.generate_content([
-    {"role": "user", "parts": "What is coding?"}
-])
+
+response = model.generate_content("What is coding?")
 print(response.text)
